@@ -9,7 +9,9 @@ const CreateNew = () => {
   const [id, setId] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   const handleResetBtnClick = () => {
     setName("");
