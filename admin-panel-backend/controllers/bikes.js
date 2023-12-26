@@ -19,6 +19,7 @@ bikesRouter.post("/", async (request, response) => {
     color: body.color,
     wheelSize: body.wheelSize,
     id: body.id,
+    price: body.price,
     description: body.description,
     status: "available",
   });
@@ -27,3 +28,5 @@ bikesRouter.post("/", async (request, response) => {
 
   response.status(201).json(savedBike);
 });
+
+module.exports = bikesRouter;

@@ -1,31 +1,21 @@
 import CreateNew from "./components/CreateNew";
 import BikesList from "./components/BikesList";
 import Statistics from "./components/Statistics";
-
-const bikes = [
-  {
-    ID: 1,
-    name: "Mountain Bike",
-    type: "Mountain",
-    color: "Red",
-    wheelSize: 26,
-    price: 500,
-    status: "available",
-    description: "A bike suitable for off-road cycling.",
-  },
-  {
-    ID: 2,
-    name: "Road Bike",
-    type: "Road",
-    color: "Blue",
-    wheelSize: 28,
-    price: 700,
-    status: "busy",
-    description: "A bike designed for traveling at speed on paved roads.",
-  },
-];
+import bikeService from "./services/bikes";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [bikes, setBikes] = useState([]);
+
+  useEffect(() => {
+    const fetchBikes = async () => {
+      const bikes = await bikeService.getAll();
+      setBikes(bikes);
+    };
+
+    fetchBikes();
+  }, []);
+
   const styles = {
     footerStyle: {
       backgroundColor: "#696969",
@@ -38,11 +28,15 @@ function App() {
     },
   };
 
+  function addABike(returnedBike) {
+    setBikes(bikes.concat(returnedBike));
+  }
+
   return (
     <div className={"general-container"}>
       <div style={styles.headerStyle}>ADMIN.BIKE-BOOKING.COM</div>
       <BikesList bikes={bikes} />
-      <CreateNew />
+      <CreateNew addABike={addABike} />
       <Statistics />
       <div style={styles.footerStyle}>Developer: Filip Kriuk</div>
     </div>

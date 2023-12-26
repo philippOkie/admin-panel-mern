@@ -7,6 +7,12 @@ const Bike = ({ bike }) => {
     };
   }
 
+  if (bike.status === "unavailable") {
+    bikeStyle = {
+      border: "4px solid #F2994A",
+    };
+  }
+
   if (bike.status === "busy") {
     bikeStyle = {
       border: "4px solid #F2994A",

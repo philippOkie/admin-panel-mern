@@ -6,6 +6,7 @@ const bikeSchema = new mongoose.Schema({
   color: String,
   wheelSize: Number,
   id: String,
+  price: Number,
   description: String,
   status: String,
 });

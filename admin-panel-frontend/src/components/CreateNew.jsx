@@ -1,54 +1,72 @@
 import { useState } from "react";
+import bikeService from "../services/bikes";
 
-const CreateNew = () => {
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  const [color, setColor] = useState("");
-  const [wheelSize, setWheelSize] = useState("");
-  const [prize, setPrize] = useState("");
-  const [id, setId] = useState("");
-  const [description, setDescription] = useState("");
+const CreateNew = (bikes, addABike) => {
+  const [form, setForm] = useState({
+    name: "",
+    type: "",
+    color: "",
+    wheelSize: "",
+    price: "",
+    id: "",
+    description: "",
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  function isNumber(value) {
+    return typeof value === "number";
+  }
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleResetBtnClick = () => {
-    setName("");
-    setType("");
-    setColor("");
-    setWheelSize("");
-    setPrize("");
-    setId("");
-    setDescription("");
+    setForm({
+      name: "",
+      type: "",
+      color: "",
+      wheelSize: "",
+      price: "",
+      id: "",
+      description: "",
+    });
   };
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      form.name.length < 5 ||
+      form.type.length < 5 ||
+      form.description.length < 5
+    ) {
+      window.alert("all text inputs should be at least 5 characters long");
+    } else if (isNumber(form.wheelSize) || isNumber(form.price)) {
+      window.alert("price and wheel size inputs should be numbers");
+    } else {
+      bikeService.create({
+        name: form.name,
+        type: form.type,
+        color: form.color,
+        wheelSize: form.wheelSize,
+        price: form.price,
+        id: form.id,
+        description: form.description,
+      });
+      addABike({
+        name: form.name,
+        type: form.type,
+        color: form.color,
+        wheelSize: form.wheelSize,
+        price: form.price,
+        id: form.id,
+        description: form.description,
+      });
+    }
 
-  const handleTypeChange = (e) => {
-    setType(e.target.value);
-  };
-
-  const handleColorChange = (e) => {
-    setColor(e.target.value);
-  };
-
-  const handleWheelSizeChange = (e) => {
-    setWheelSize(e.target.value);
-  };
-
-  const handlePrizeChange = (e) => {
-    setPrize(e.target.value);
-  };
-
-  const handleIdChange = (e) => {
-    setId(e.target.value);
-  };
-
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
+    handleResetBtnClick();
   };
 
   return (
@@ -57,47 +75,54 @@ const CreateNew = () => {
         <input
           required
           type="text"
-          onChange={handleNameChange}
+          name="name"
+          onChange={handleChange}
           placeholder="Name"
         />
         <input
           required
           type="text"
-          onChange={handleTypeChange}
+          name="type"
+          onChange={handleChange}
           placeholder="Type"
         />
         <input
           required
           type="text"
-          onChange={handleColorChange}
+          name="color"
+          onChange={handleChange}
           placeholder="Color"
         />
         <input
           required
           type="text"
-          onChange={handleWheelSizeChange}
+          name="wheelSize"
+          onChange={handleChange}
           placeholder="Wheel Size"
         />
         <input
           required
           type="text"
-          onChange={handlePrizeChange}
-          placeholder="Prize"
+          name="price"
+          onChange={handleChange}
+          placeholder="Price"
         />
         <input
           required
           type="text"
-          onChange={handleIdChange}
+          name="id"
+          onChange={handleChange}
           placeholder="ID(slug):XXXXXXXXXXXXX"
         />
         <textarea
           required
           type="text"
-          onChange={handleDescriptionChange}
+          name="description"
+          onChange={handleChange}
           placeholder="Description"
         />
         <button onClick={handleSubmit} type="submit">
-          save
+          Save
         </button>
         <button type="reset" onClick={handleResetBtnClick}>
           Clear
