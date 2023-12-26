@@ -1,4 +1,5 @@
 const bikesRouter = require("express").Router();
+const { request } = require("../app");
 const Bike = require("../models/bike");
 
 bikesRouter.get("/", async (request, response) => {
@@ -28,5 +29,13 @@ bikesRouter.post("/", async (request, response) => {
 
   response.status(201).json(savedBike);
 });
+
+bikesRouter.delete("/:id", async (request, response) => {
+  await Bike.findByIdAndDelete(request.params.id);
+
+  response.status(204).end();
+});
+
+bikesRouter.put("/:id", async (request, response) => {});
 
 module.exports = bikesRouter;

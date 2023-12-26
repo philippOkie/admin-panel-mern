@@ -1,4 +1,4 @@
-const Bike = ({ bike }) => {
+const Bike = ({ bike, handleDelete }) => {
   let bikeStyle = {};
 
   if (bike.status === "available") {
@@ -22,6 +22,7 @@ const Bike = ({ bike }) => {
   return (
     <div style={bikeStyle}>
       <p>{bike.name}</p>
+      <button onClick={() => handleDelete(bike._id)}>X</button>
     </div>
   );
 };

@@ -32,10 +32,20 @@ function App() {
     setBikes(bikes.concat(returnedBike));
   }
 
+  async function handleDelete(id) {
+    try {
+      await bikeService.remove(id);
+      setBikes(bikes.filter((bike) => bike._id !== id));
+      console.log(`Deleting bike with ID ${id}`);
+    } catch (error) {
+      console.error("Error deleting bike:", error);
+    }
+  }
+
   return (
     <div className={"general-container"}>
       <div style={styles.headerStyle}>ADMIN.BIKE-BOOKING.COM</div>
-      <BikesList bikes={bikes} />
+      <BikesList bikes={bikes} handleDelete={handleDelete} />
       <CreateNew addABike={addABike} />
       <Statistics />
       <div style={styles.footerStyle}>Developer: Filip Kriuk</div>
