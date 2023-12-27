@@ -9,9 +9,16 @@ bikesRouter.get("/", async (request, response) => {
 
 bikesRouter.post("/", async (request, response) => {
   const body = request.body;
+  const blogs = await Bike.find({});
 
   if (body.name === undefined || body.id === undefined) {
     return response.status(400).end();
+  }
+
+  const existingBikeWithSameId = await Bike.findOne({ id: body.id });
+
+  if (existingBikeWithSameId) {
+    return response.status(409).json({ error: "Duplicate id found" });
   }
 
   const bike = new Bike({

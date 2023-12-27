@@ -64,6 +64,9 @@ const CreateNew = ({ addABike }) => {
         addABike(newBike);
       } catch (error) {
         console.error("Error creating bike:", error);
+        if (error.response && error.response.status === 409) {
+          window.alert("tips: check if the id is unique");
+        }
       }
     }
     handleResetBtnClick();
