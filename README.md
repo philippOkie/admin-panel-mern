@@ -38,10 +38,8 @@ A step by step series of examples that tell you how to get a development environ
 
   4.1. Add .env file into the root dir and make sure it looks like
 
-///
-MONGODB_URI = "mongodb+srv://<username>:<password>@tech-task.5rwzeli.mongodb.net/?retryWrites=true&w=majority"
-PORT=3003
-///
+--- MONGODB_URI = "mongodb+srv://"username":"password"@tech-task.5rwzeli.mongodb.net/?retryWrites=true&w=majority"
+--- PORT=3003
 
 I used MongoDB Atlas for this project.
 
