@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import bikeService from "../services/bikes";
 
-const CreateNew = (bikes, addABike) => {
+const CreateNew = ({ addABike }) => {
   const [form, setForm] = useState({
     name: "",
     type: "",
@@ -11,6 +11,10 @@ const CreateNew = (bikes, addABike) => {
     id: "",
     description: "",
   });
+
+  useEffect(() => {
+    console.log("Form state:", form);
+  }, [form]);
 
   function isNumber(value) {
     return typeof value === "number";
@@ -24,6 +28,7 @@ const CreateNew = (bikes, addABike) => {
   };
 
   const handleResetBtnClick = () => {
+    console.log("Resetting form state");
     setForm({
       name: "",
       type: "",
@@ -35,7 +40,7 @@ const CreateNew = (bikes, addABike) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       form.name.length < 5 ||
@@ -46,29 +51,23 @@ const CreateNew = (bikes, addABike) => {
     } else if (isNumber(form.wheelSize) || isNumber(form.price)) {
       window.alert("price and wheel size inputs should be numbers");
     } else {
-      bikeService.create({
-        name: form.name,
-        type: form.type,
-        color: form.color,
-        wheelSize: form.wheelSize,
-        price: form.price,
-        id: form.id,
-        description: form.description,
-      });
-      addABike({
-        name: form.name,
-        type: form.type,
-        color: form.color,
-        wheelSize: form.wheelSize,
-        price: form.price,
-        id: form.id,
-        description: form.description,
-      });
+      try {
+        const newBike = await bikeService.create({
+          name: form.name,
+          type: form.type,
+          color: form.color,
+          wheelSize: form.wheelSize,
+          price: form.price,
+          id: form.id,
+          description: form.description,
+        });
+        addABike(newBike);
+      } catch (error) {
+        console.error("Error creating bike:", error);
+      }
     }
-
     handleResetBtnClick();
   };
-
   return (
     <div>
       <form>
@@ -76,12 +75,14 @@ const CreateNew = (bikes, addABike) => {
           required
           type="text"
           name="name"
+          value={form.name}
           onChange={handleChange}
           placeholder="Name"
         />
         <input
           required
           type="text"
+          value={form.type}
           name="type"
           onChange={handleChange}
           placeholder="Type"
@@ -89,6 +90,7 @@ const CreateNew = (bikes, addABike) => {
         <input
           required
           type="text"
+          value={form.color}
           name="color"
           onChange={handleChange}
           placeholder="Color"
@@ -96,6 +98,7 @@ const CreateNew = (bikes, addABike) => {
         <input
           required
           type="text"
+          value={form.wheelSize}
           name="wheelSize"
           onChange={handleChange}
           placeholder="Wheel Size"
@@ -103,6 +106,7 @@ const CreateNew = (bikes, addABike) => {
         <input
           required
           type="text"
+          value={form.price}
           name="price"
           onChange={handleChange}
           placeholder="Price"
@@ -110,6 +114,7 @@ const CreateNew = (bikes, addABike) => {
         <input
           required
           type="text"
+          value={form.id}
           name="id"
           onChange={handleChange}
           placeholder="ID(slug):XXXXXXXXXXXXX"
@@ -117,6 +122,7 @@ const CreateNew = (bikes, addABike) => {
         <textarea
           required
           type="text"
+          value={form.description}
           name="description"
           onChange={handleChange}
           placeholder="Description"
