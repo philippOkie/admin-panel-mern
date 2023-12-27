@@ -1,5 +1,4 @@
 const bikesRouter = require("express").Router();
-const { request } = require("../app");
 const Bike = require("../models/bike");
 
 bikesRouter.get("/", async (request, response) => {
@@ -9,7 +8,6 @@ bikesRouter.get("/", async (request, response) => {
 
 bikesRouter.post("/", async (request, response) => {
   const body = request.body;
-  const blogs = await Bike.find({});
 
   if (body.name === undefined || body.id === undefined) {
     return response.status(400).end();

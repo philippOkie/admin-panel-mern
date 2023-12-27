@@ -73,6 +73,9 @@ const Bike = ({ bike, handleDelete }) => {
     <div style={bikeStyle}>
       <p>
         <strong>{bike.name}</strong> - {bike.type}({bike.color})
+        <button style={btnStyle} onClick={() => handleDelete(bike._id)}>
+          X
+        </button>
       </p>
       <p>ID: {bike.id}</p>
       <div>
@@ -92,9 +95,7 @@ const Bike = ({ bike, handleDelete }) => {
           </div>
         )}
       </div>
-      <button style={btnStyle} onClick={() => handleDelete(bike._id)}>
-        X
-      </button>
+      <p>{bike.price} UAH/hr.</p>
     </div>
   );
 };
