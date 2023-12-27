@@ -43,6 +43,23 @@ bikesRouter.delete("/:id", async (request, response) => {
   response.status(204).end();
 });
 
-bikesRouter.put("/:id", async (request, response) => {});
+bikesRouter.put("/:id", async (request, response) => {
+  try {
+    const updatedBike = await Bike.findOneAndUpdate(
+      { _id: request.params.id },
+      request.body,
+      { new: true }
+    );
+
+    if (!updatedBike) {
+      return response.status(404).json({ error: "Bike not found" });
+    }
+
+    response.json(updatedBike);
+  } catch (error) {
+    console.error("Error updating bike:", error);
+    response.status(500).json({ error: "Internal server error" });
+  }
+});
 
 module.exports = bikesRouter;

@@ -1,43 +1,43 @@
 const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
 
+// Define the schema for the Bike model
 const bikeSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minLength: 5,
+    minlength: 5,
   },
   type: {
     type: String,
     required: true,
-    minLength: 5,
+    minlength: 5,
   },
   color: String,
   wheelSize: {
     type: Number,
     required: true,
+    min: 0,
   },
   id: {
     type: String,
     required: true,
-    minLength: 5,
+    minlength: 5,
     unique: true,
   },
   price: {
     type: Number,
     required: true,
+    min: 0,
   },
   description: {
     type: String,
     required: true,
-    minLength: 5,
+    minlength: 5,
   },
   status: {
     type: String,
     required: true,
   },
 });
-
-bikeSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model("Bike", bikeSchema);
