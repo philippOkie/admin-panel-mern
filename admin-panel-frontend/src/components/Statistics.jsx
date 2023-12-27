@@ -1,8 +1,13 @@
-const Statistics = (bikes) => {
+const Statistics = ({ bikes }) => {
   const totalBikes = (bikes) => {
+    if (!Array.isArray(bikes)) {
+      console.error("Input is not an array");
+      return 0;
+    }
+
     let totBikes = 0;
     for (let i = 0; i < bikes.length; i++) {
-      if (bikes[i].id) {
+      if (bikes[i].id !== undefined) {
         totBikes++;
       }
     }
@@ -46,10 +51,10 @@ const Statistics = (bikes) => {
   return (
     <div>
       <h3>STATISTICS</h3>
-      <p>Total Bikes: {stats.totalBikes}</p>
-      <p>Available Bikes: {stats.availableBikes}</p>
-      <p>Booked Bikes: {stats.bookedBikes}</p>
-      <p>Average bike cost: {stats.averageCost}</p>
+      <p>Total Bikes: {totalBikes(bikes)}</p>
+      <p>Available Bikes: {totalAvailable(bikes)}</p>
+      <p>Booked Bikes: {totalBusy(bikes)}</p>
+      <p>Average bike cost: {averPrice(bikes)}</p>
     </div>
   );
 };

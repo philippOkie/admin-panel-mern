@@ -12,10 +12,6 @@ const CreateNew = ({ addABike }) => {
     description: "",
   });
 
-  useEffect(() => {
-    console.log("Form state:", form);
-  }, [form]);
-
   function isNumber(value) {
     return typeof value === "number";
   }
@@ -48,7 +44,7 @@ const CreateNew = ({ addABike }) => {
       form.description.length < 5
     ) {
       window.alert("all text inputs should be at least 5 characters long");
-    } else if (isNumber(form.wheelSize) || isNumber(form.price)) {
+    } else if (!isNumber(form.wheelSize) || !isNumber(form.price)) {
       window.alert("price and wheel size inputs should be numbers");
     } else {
       try {

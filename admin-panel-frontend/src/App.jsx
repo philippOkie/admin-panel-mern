@@ -47,7 +47,7 @@ function App() {
       <div style={styles.headerStyle}>ADMIN.BIKE-BOOKING.COM</div>
       <BikesList bikes={bikes} handleDelete={handleDelete} />
       <CreateNew addABike={addABike} />
-      <Statistics />
+      <Statistics bikes={bikes} />
       <div style={styles.footerStyle}>Developer: Filip Kriuk</div>
     </div>
   );
