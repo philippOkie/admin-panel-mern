@@ -13,9 +13,8 @@ const CreateNew = ({ addABike }) => {
   });
 
   function isNumber(value) {
-    return typeof value === "number";
+    return typeof value === "number" && !isNaN(value);
   }
-
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -44,7 +43,7 @@ const CreateNew = ({ addABike }) => {
       form.description.length < 5
     ) {
       window.alert("all text inputs should be at least 5 characters long");
-    } else if (!isNumber(form.wheelSize) || !isNumber(form.price)) {
+    } else if (isNumber(form.wheelSize) || isNumber(form.price)) {
       window.alert("price and wheel size inputs should be numbers");
     } else {
       try {
@@ -68,7 +67,7 @@ const CreateNew = ({ addABike }) => {
     handleResetBtnClick();
   };
   return (
-    <div>
+    <div className="create-new">
       <form>
         <input
           required
@@ -126,10 +125,10 @@ const CreateNew = ({ addABike }) => {
           onChange={handleChange}
           placeholder="Description"
         />
-        <button onClick={handleSubmit} type="submit">
+        <button className="formBtn" onClick={handleSubmit} type="submit">
           Save
         </button>
-        <button type="reset" onClick={handleResetBtnClick}>
+        <button className="formBtn" type="reset" onClick={handleResetBtnClick}>
           Clear
         </button>
       </form>

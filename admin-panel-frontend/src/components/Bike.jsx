@@ -24,15 +24,16 @@ const Bike = ({ bike, handleDelete }) => {
     let newBikeStyle = {};
     if (newStatus === "available") {
       newBikeStyle = {
-        border: "4px solid #6FCF97",
+        border: "2px solid #6FCF97",
       };
     } else if (newStatus === "busy") {
       newBikeStyle = {
-        border: "4px solid #F2994A",
+        border: "2px solid #F2994A",
       };
     } else if (newStatus === "unavailable") {
       newBikeStyle = {
-        border: "4px solid #EB5757",
+        border: "2px solid #EB5757",
+        backgroundColor: "rgba(255, 255, 255, .5)",
       };
     }
 
@@ -45,15 +46,16 @@ const Bike = ({ bike, handleDelete }) => {
   const [bikeStyle, setBikeStyle] = useState(() => {
     if (bike.status === "available") {
       return {
-        border: "4px solid #6FCF97",
+        border: "2px solid #6FCF97",
       };
     } else if (bike.status === "busy") {
       return {
-        border: "4px solid #F2994A",
+        border: "2px solid #F2994A",
       };
     } else if (bike.status === "unavailable") {
       return {
-        border: "4px solid #EB5757",
+        border: "2px solid #EB5757",
+        backgroundColor: "rgba(255, 255, 255, .5)",
       };
     }
 
@@ -61,7 +63,7 @@ const Bike = ({ bike, handleDelete }) => {
   });
 
   const btnStyle = {
-    backgroundColor: "#e8e8e8",
+    fontSize: "large",
     fontWeight: "700",
   };
 
@@ -70,32 +72,55 @@ const Bike = ({ bike, handleDelete }) => {
   };
 
   return (
-    <div style={bikeStyle}>
-      <p>
-        <strong>{bike.name}</strong> - {bike.type}({bike.color})
-        <button style={btnStyle} onClick={() => handleDelete(bike._id)}>
+    <div className="bike-style" style={bikeStyle}>
+      <div>
+        <p>
+          <strong>{bike.name}</strong> - {bike.type}({bike.color})
+        </p>
+        <p>ID: {bike.id}</p>
+        <div>
+          STATUS:{" "}
+          <button
+            className="toggle-style"
+            style={toggleStyle}
+            onClick={toggleDropDown}
+          >
+            {selectedStatus} ▼
+          </button>
+          {dropDownMenu && (
+            <div>
+              <button
+                className="toggle-style"
+                onClick={() => handleStatusChange("available")}
+              >
+                Available
+              </button>
+              <button
+                className="toggle-style"
+                onClick={() => handleStatusChange("unavailable")}
+              >
+                Unavailable
+              </button>
+              <button
+                className="toggle-style"
+                onClick={() => handleStatusChange("busy")}
+              >
+                Busy
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="wrapper-btn-price">
+        <button
+          className="remove-btn"
+          style={btnStyle}
+          onClick={() => handleDelete(bike._id)}
+        >
           X
         </button>
-      </p>
-      <p>ID: {bike.id}</p>
-      <div>
-        STATUS:{" "}
-        <button style={toggleStyle} onClick={toggleDropDown}>
-          {selectedStatus} ▼
-        </button>
-        {dropDownMenu && (
-          <div>
-            <button onClick={() => handleStatusChange("available")}>
-              Available
-            </button>
-            <button onClick={() => handleStatusChange("unavailable")}>
-              Unavailable
-            </button>
-            <button onClick={() => handleStatusChange("busy")}>Busy</button>
-          </div>
-        )}
+        <p>{bike.price} UAH/hr.</p>
       </div>
-      <p>{bike.price} UAH/hr.</p>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import Bike from "./Bike";
 
 const BikesList = ({ bikes, handleDelete }) => {
   return (
-    <div>
+    <div className="bikes-list">
       {bikes.map((bike) => (
         <Bike key={bike.id} bike={bike} handleDelete={handleDelete} />
       ))}

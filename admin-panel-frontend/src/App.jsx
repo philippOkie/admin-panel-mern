@@ -3,6 +3,7 @@ import BikesList from "./components/BikesList";
 import Statistics from "./components/Statistics";
 import bikeService from "./services/bikes";
 import { useEffect, useState } from "react";
+import "./index.css";
 
 function App() {
   const [bikes, setBikes] = useState([]);
@@ -15,18 +16,6 @@ function App() {
 
     fetchBikes();
   }, []);
-
-  const styles = {
-    footerStyle: {
-      backgroundColor: "#696969",
-      color: "#E8E8E8",
-    },
-
-    headerStyle: {
-      backgroundColor: "#696969",
-      color: "#E8E8E8",
-    },
-  };
 
   function addABike(returnedBike) {
     setBikes(bikes.concat(returnedBike));
@@ -44,11 +33,13 @@ function App() {
 
   return (
     <div className={"general-container"}>
-      <div style={styles.headerStyle}>ADMIN.BIKE-BOOKING.COM</div>
-      <BikesList bikes={bikes} handleDelete={handleDelete} />
-      <CreateNew addABike={addABike} />
-      <Statistics bikes={bikes} />
-      <div style={styles.footerStyle}>Developer: Filip Kriuk</div>
+      <div className="wrapper">
+        <div className="headerStyle">ADMIN.BIKE-BOOKING.COM</div>
+        <BikesList bikes={bikes} handleDelete={handleDelete} />
+        <CreateNew addABike={addABike} />
+        <Statistics bikes={bikes} />
+        <div className="footerStyle">Developer: Filip Kriuk</div>
+      </div>
     </div>
   );
 }

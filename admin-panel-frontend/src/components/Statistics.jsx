@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 const Statistics = ({ bikes }) => {
   const totalBikes = (bikes) => {
     if (!Array.isArray(bikes)) {
@@ -45,11 +47,15 @@ const Statistics = ({ bikes }) => {
       totalPrice = totalPrice + bikes[i].price;
     }
 
-    return totalPrice / allBikes;
+    return allBikes > 0 ? totalPrice / allBikes : 0;
   };
 
+  useEffect(() => {
+    console.log("Effect triggered with new bikes:", bikes);
+  }, [bikes]);
+
   return (
-    <div>
+    <div className="stats">
       <h3>STATISTICS</h3>
       <p>Total Bikes: {totalBikes(bikes)}</p>
       <p>Available Bikes: {totalAvailable(bikes)}</p>

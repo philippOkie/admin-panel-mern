@@ -21,7 +21,6 @@ const bikeSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true,
-    minlength: 5,
     unique: true,
   },
   price: {
