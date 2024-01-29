@@ -1,4 +1,6 @@
 # Tech Task Admin Panel
+![FireShot Capture 002 - Vite + React - localhost](https://github.com/philippOkie/tech-task-admin-panel/assets/112265779/cf78b2ba-dd16-4aa7-9724-fccbcdc2fa54)
+
 
 This project is divided into two main directories: one for the backend (`admin-panel-backend`) and one for the frontend (`tech-task-admin-panel`).
 
